@@ -1,13 +1,3 @@
-
-'''
-Note: 
-	- This code only works on Windows systems
-	- It is important to note that additional libraries are needed to run this code which is not covered in class such as:
-		- pyHook
-		- pythoncom
-	
-'''
-
 from ctypes import *
 import pythoncom
 import pyHook
