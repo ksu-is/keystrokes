@@ -1,4 +1,4 @@
-Keystrokes
+#Keystrokes
 
 This script displays user keystrokes in a terminal.
 
