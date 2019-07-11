@@ -1,4 +1,4 @@
-# Keystrokes
+# Keystrokes - A Python project for Penetration Testers 
 
 This script displays user keystrokes in a terminal.
 
