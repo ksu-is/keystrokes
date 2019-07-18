@@ -1,3 +1,4 @@
+#                                                     Project Roadmap
 1. >**DONE**  Propose a project idea relating to our current major and interests with the intent of project approval so we can start on our project. *Shayan & Masha*
 2. >**DONE**  Research code templates which have a similar objective as our project idea in order to attain framework for the code. *Masha*
 3. >**DONE**  Utilize textbook resources to attain addition knowledge of how to build the code. *Shayan*
