@@ -10,7 +10,4 @@ Note:
   	- pyHook
 	- pythoncom
 
-Not working:
-  - Ctrl + C is not working so the program cannot quit by itself
-  - Output in .txt format is not working
   - There are some exceptions being generated but no major bugs. 
